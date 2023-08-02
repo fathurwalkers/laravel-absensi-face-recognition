@@ -4,13 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{BackController, AbsensiController, ClientController, LaporanController,};
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return redirect()->route('client');
 });
 
 Route::get('/login-admin', [BackController::class, 'login_admin'])->name('login-admin');
 Route::get('/login-client', [BackController::class, 'login_client'])->name('login-client');
 Route::post('/proses-login', [BackController::class, 'post_login'])->name('proses-login');
 Route::post('/logout', [BackController::class, 'logout'])->name('logout');
+
 // dashboard route
 Route::group(['prefix' => '/dashboard', 'middleware' => 'cek-admin'], function () {
     Route::get('/', [BackController::class, 'index'])->name('dashboard');
@@ -28,7 +29,6 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'cek-admin'], function (
 });
 
 // client route
-
 Route::group(['prefix' => '/client', 'middleware' => 'cek-user'], function () {
     Route::get('/', [ClientController::class, 'index'])->name(('client'));
     Route::get('/absen', [ClientController::class, 'absen'])->name(('absen'));

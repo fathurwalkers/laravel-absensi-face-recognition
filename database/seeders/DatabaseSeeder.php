@@ -122,5 +122,33 @@ class DatabaseSeeder extends Seeder
         ];
 
         Login::create($data);
+
+
+        //user 3
+
+        $token = Str::random(16);
+        $role = 'user';
+        $hash_password = Hash::make('jancok', [
+            'rounds' => 12,
+        ]);
+
+        $hash_token = Hash::make($token, [
+            'rounds' => 12,
+        ]);
+
+        $data = [
+            'login_nama' => 'Example Users',
+            'login_username' => 'example',
+            'login_password' => $hash_password,
+            'login_email' => 'exampleusers@gmail.com',
+            'login_telepon' => '08393929191',
+            'login_token' => $hash_token,
+            'login_level' => $role,
+            'login_status' => "verified",
+            'created_at' => now(),
+            'updated_at' => now()
+        ];
+
+        Login::create($data);
     }
 }
